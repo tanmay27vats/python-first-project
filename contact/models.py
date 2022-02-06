@@ -12,3 +12,8 @@ class Contact(models.Model):
     #     return self.email
     def __int__(self):
         return self.id
+
+    class Meta:
+        # db_table = 'contact_contact'
+        # Add verbose name
+        verbose_name = 'Contact Us Requests'
