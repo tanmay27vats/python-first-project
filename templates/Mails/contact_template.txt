@@ -1,0 +1,11 @@
+Full Name:
+{{ full_name }}
+
+Email:
+{{ email }}
+
+Message:
+{{ message|safe|striptags }}
+
+Regards,
+Tanmay Vats

@@ -1,0 +1,91 @@
+{% extends '../master.html' %}
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>{{ page_heading }}</h1>
+                <p>{{ page_content }}</p>
+                {{ template }}
+            </div>
+            <div class="col">
+                <h2>Reach Us</h2>
+                {% if success %}
+                    <div class="alert alert-success" role="alert">
+                      Thank you for your inquiry. Your contact information and message was successfully submitted.
+                    </div>
+                {% endif %}
+                <form class="needs-validation" novalidate method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+                        <label for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
+                        {{ form.full_name }}
+                        {{ form.full_name.errors }}
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your full name
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your email
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.message.label_tag }}
+                        {{ form.message }}
+                        {{ form.message.errors }}
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your message
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+                {% comment 'form_printing_alternate_way' %}
+                    We can also use this method for form
+                    <form action="" method="post">
+                       {% csrf_token %}
+                       {{ form }}
+                       <input type="submit" value="Submit">
+                    </form>
+                {% endcomment %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+    </script>
+{% endblock %}
